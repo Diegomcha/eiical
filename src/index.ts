@@ -9,7 +9,7 @@ export default {
 			const data = getData(new URL(req.url));
 
 			// Home
-			if (data.url.pathname === '/') return new Response('Home');
+			if (data.url.pathname === '/') return new Response('Home'); //TODO: Explain the routes of the api
 
 			// Calendar routes
 			if (/^\/cal\/\d\d-\d\d\/s\d\/UO\d+\/?(ical|csv)?\/?$/gi.test(data.url.pathname)) {
@@ -22,11 +22,12 @@ export default {
 			}
 
 			// Route not found
-			return new Response(null, { status: 404 });
+			return new Response('Not found', { status: 404 });
 		} catch (err) {
 			// Default error handler
+			//TODO: Improve
 			console.error(err);
-			return new Response(null, { status: 500 });
+			return new Response('Internal Server Error', { status: 500 });
 		}
 	},
 };
