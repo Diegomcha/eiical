@@ -18,7 +18,7 @@ export default async function calIcal(data: Data) {
 	const csv = await listCsv.text();
 
 	// Return ical
-	return new Response(generateIcalString(data.user, csv), {
+	return new Response(generateIcalString(data, csv), {
 		headers: {
 			'Content-Type': 'text/calendar',
 			'Content-Disposition': `attachment; filename="plan_${data.user}.ical"`,
