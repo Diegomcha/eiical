@@ -1,11 +1,12 @@
-name: ESLint
+name: Analysis & deployment
 
 on:
-  push:
-    branches: ['main']
   pull_request:
-    # The branches below must be a subset of the branches above
-    branches: ['main']
+    branches:
+      - main
+  push:
+    branches:
+      - main
 
 jobs:
   eslint:
@@ -37,3 +38,14 @@ jobs:
         with:
           sarif_file: eslint-results.sarif
           wait-for-processing: true
+  deploy:
+    if: ${{github.event_name != 'pull_request'}}
+    needs: eslint
+    runs-on: ubuntu-latest
+    name: Deploy
+    steps:
+      - uses: actions/checkout@v3
+      - name: Deploy
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CF_API_TOKEN }}
