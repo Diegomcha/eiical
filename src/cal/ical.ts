@@ -1,11 +1,11 @@
 import { getList } from '../utils';
 import { invalidPeriod, scheduleNotAvailable, userNotFound } from '../utils/errors';
 import { generateIcalString } from '../utils/ical';
-import { Data } from '../utils/types';
+import { Data, Env } from '../utils/types';
 
-export default async function calIcal(data: Data) {
+export default async function calIcal(data: Data, env: Env) {
 	// Fetch list
-	const list = await getList(data);
+	const list = await getList(data, env);
 	if (typeof list === 'number') return invalidPeriod(list);
 
 	// Get user url
@@ -22,6 +22,7 @@ export default async function calIcal(data: Data) {
 		headers: {
 			'Content-Type': 'text/calendar',
 			'Content-Disposition': `attachment; filename="plan_${data.user}.ical"`,
+			'Cache-Control': 'public, max-age=43200',
 		},
 	});
 }

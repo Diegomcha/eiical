@@ -1,3 +1,7 @@
+export interface Env {
+	eiical: KVNamespace;
+}
+
 export interface Data {
 	url: URL;
 	year: `${number}-${number}`;

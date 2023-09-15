@@ -1,10 +1,12 @@
 {
-	"name": "eiical-cf",
+	"name": "eiical",
 	"version": "1.0.0",
 	"private": true,
 	"scripts": {
 		"deploy": "wrangler deploy",
-		"start": "wrangler dev"
+		"start": "wrangler dev",
+		"lint": "eslint . && prettier -c .",
+		"lint:fix": "eslint --fix . && prettier -w ."
 	},
 	"devDependencies": {
 		"@cloudflare/workers-types": "^4.20230419.0",
@@ -13,6 +15,7 @@
 		"eslint": "^8.48.0",
 		"eslint-config-prettier": "^9.0.0",
 		"typescript": "^5.0.4",
+		"prettier": "^3.0.3",
 		"wrangler": "^3.0.0"
 	},
 	"eslintConfig": {

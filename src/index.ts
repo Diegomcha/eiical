@@ -2,9 +2,10 @@ import cal from './cal';
 import calCsv from './cal/csv';
 import calIcal from './cal/ical';
 import { getData } from './utils';
+import { Env } from './utils/types';
 
 export default {
-	async fetch(req: Request): Promise<Response> {
+	async fetch(req: Request, env: Env): Promise<Response> {
 		try {
 			const data = getData(new URL(req.url));
 
@@ -14,11 +15,11 @@ export default {
 			// Calendar routes
 			if (/^\/cal\/\d\d-\d\d\/s\d\/UO\d+\/?(ical|csv)?\/?$/gi.test(data.url.pathname)) {
 				// Ical route
-				if (data.url.pathname.includes('ical')) return calIcal(data);
+				if (data.url.pathname.includes('ical')) return calIcal(data, env);
 				// Csv route
-				if (data.url.pathname.includes('csv')) return calCsv(data);
+				if (data.url.pathname.includes('csv')) return calCsv(data, env);
 				// Index route
-				return cal(data);
+				return cal(data, env);
 			}
 
 			// Route not found
