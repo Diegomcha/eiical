@@ -1,25 +1,15 @@
-import cal from './cal';
-import calCsv from './cal/csv';
-import calIcal from './cal/ical';
-import { getData } from './utils';
 import { Env } from './utils/types';
+import routes from './routes';
 
 export default {
 	async fetch(req: Request, env: Env): Promise<Response> {
 		try {
-			const data = getData(new URL(req.url));
+			// Parse the url
+			const url = new URL(req.url);
 
-			// Home
-			if (data.url.pathname === '/') return new Response('Home'); //TODO: Explain the routes of the api
-
-			// Calendar routes
-			if (/^\/cal\/\d\d-\d\d\/s\d\/UO\d+\/?(ical|csv)?\/?$/gi.test(data.url.pathname)) {
-				// Ical route
-				if (data.url.pathname.includes('ical')) return calIcal(data, env);
-				// Csv route
-				if (data.url.pathname.includes('csv')) return calCsv(data, env);
-				// Index route
-				return cal(data, env);
+			// Execute the appropriate route
+			for (const route of routes) {
+				if (route.isRoute(url)) return await route.handleRequest(url, env);
 			}
 
 			// Route not found

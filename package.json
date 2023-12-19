@@ -1,6 +1,6 @@
 {
 	"name": "eiical",
-	"version": "1.0.0",
+	"version": "1.1.0",
 	"private": true,
 	"scripts": {
 		"deploy": "wrangler deploy",
@@ -9,14 +9,14 @@
 		"lint:fix": "eslint --fix . && prettier -w ."
 	},
 	"devDependencies": {
-		"@cloudflare/workers-types": "^4.20230419.0",
-		"@typescript-eslint/eslint-plugin": "^6.6.0",
-		"@typescript-eslint/parser": "^6.6.0",
-		"eslint": "^8.48.0",
-		"eslint-config-prettier": "^9.0.0",
-		"typescript": "^5.0.4",
-		"prettier": "^3.0.3",
-		"wrangler": "^3.0.0"
+		"@cloudflare/workers-types": "^4.20231218.0",
+		"@typescript-eslint/eslint-plugin": "^6.15.0",
+		"@typescript-eslint/parser": "^6.15.0",
+		"eslint": "^8.56.0",
+		"eslint-config-prettier": "^9.1.0",
+		"typescript": "^5.3.3",
+		"prettier": "^3.1.1",
+		"wrangler": "3.16.0"
 	},
 	"eslintConfig": {
 		"env": {
@@ -53,9 +53,9 @@
 		]
 	},
 	"dependencies": {
-		"@types/uuid": "^9.0.3",
-		"dayjs": "^1.11.9",
-		"ics": "^3.4.0",
-		"uuid": "^9.0.0"
+		"@types/uuid": "^9.0.7",
+		"dayjs": "^1.11.10",
+		"ics": "^3.7.1",
+		"uuid": "^9.0.1"
 	}
 }
