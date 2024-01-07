@@ -1,7 +1,10 @@
 name = "eiical"
 main = "src/index.ts"
-compatibility_date = "2023-09-15"
+compatibility_date = "2023-12-19"
 
 kv_namespaces = [
     { binding = "eiical", id = "f80ed27a7689471e854d458c9be0ac2d", preview_id = "883bcf6b988f45c09acaebbd2f151612" }
 ]
+
+[placement]
+mode = "smart"

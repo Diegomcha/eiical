@@ -1,4 +1,5 @@
 import { Route } from '../utils/Route';
+import { GITHUB_URL } from '../utils/constants';
 
 export default class extends Route {
 	public constructor() {
@@ -6,6 +7,6 @@ export default class extends Route {
 	}
 
 	public execute(): Response {
-		return new Response('Home');
+		return Response.redirect(GITHUB_URL);
 	}
 }
