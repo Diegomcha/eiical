@@ -6,7 +6,7 @@ import { Env } from '../../utils/types';
 
 export default class extends Route {
 	public constructor() {
-		super(/^\/\d\d-\d\d\/s\d(\/UO\d+)?\/?$/gi);
+		super(/^\/cal\/\d\d-\d\d\/s\d(\/UO\d+)?\/?$/gi);
 	}
 
 	public async execute(url: URL, env: Env): Promise<Response> {
