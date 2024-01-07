@@ -1,61 +1,61 @@
 {
-	"name": "eiical",
-	"version": "1.1.0",
-	"private": true,
-	"scripts": {
-		"deploy": "wrangler deploy",
-		"start": "wrangler dev",
-		"lint": "eslint . && prettier -c .",
-		"lint:fix": "eslint --fix . && prettier -w ."
-	},
-	"devDependencies": {
-		"@cloudflare/workers-types": "^4.20231218.0",
-		"@typescript-eslint/eslint-plugin": "^6.15.0",
-		"@typescript-eslint/parser": "^6.15.0",
-		"eslint": "^8.56.0",
-		"eslint-config-prettier": "^9.1.0",
-		"typescript": "^5.3.3",
-		"prettier": "^3.1.1",
-		"wrangler": "3.16.0"
-	},
-	"eslintConfig": {
-		"env": {
-			"es6": true
-		},
-		"extends": [
-			"eslint:recommended",
-			"prettier"
-		],
-		"parserOptions": {
-			"ecmaVersion": 2022,
-			"sourceType": "module",
-			"project": "tsconfig.json"
-		},
-		"overrides": [
-			{
-				"files": [
-					"*.ts",
-					".tsx"
-				],
-				"parser": "@typescript-eslint/parser",
-				"extends": [
-					"plugin:@typescript-eslint/strict-type-checked",
-					"plugin:@typescript-eslint/stylistic-type-checked",
-					"prettier"
-				],
-				"plugins": [
-					"@typescript-eslint"
-				],
-				"parserOptions": {
-					"warnOnUnsupportedTypeScriptVersion": true
-				}
-			}
-		]
-	},
-	"dependencies": {
-		"@types/uuid": "^9.0.7",
-		"dayjs": "^1.11.10",
-		"ics": "^3.7.1",
-		"uuid": "^9.0.1"
-	}
+  "name": "eiical",
+  "version": "1.1.0",
+  "private": true,
+  "scripts": {
+    "deploy": "wrangler deploy",
+    "start": "wrangler dev",
+    "lint": "eslint . && prettier -c .",
+    "lint:fix": "eslint --fix . && prettier -w ."
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20231218.0",
+    "@typescript-eslint/eslint-plugin": "^6.18.0",
+    "@typescript-eslint/parser": "^6.18.0",
+    "eslint": "^8.56.0",
+    "eslint-config-prettier": "^9.1.0",
+    "typescript": "^5.3.3",
+    "prettier": "^3.1.1",
+    "wrangler": "3.22.3"
+  },
+  "eslintConfig": {
+    "env": {
+      "es6": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "prettier"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 2022,
+      "sourceType": "module",
+      "project": "tsconfig.json"
+    },
+    "overrides": [
+      {
+        "files": [
+          "*.ts",
+          ".tsx"
+        ],
+        "parser": "@typescript-eslint/parser",
+        "extends": [
+          "plugin:@typescript-eslint/strict-type-checked",
+          "plugin:@typescript-eslint/stylistic-type-checked",
+          "prettier"
+        ],
+        "plugins": [
+          "@typescript-eslint"
+        ],
+        "parserOptions": {
+          "warnOnUnsupportedTypeScriptVersion": true
+        }
+      }
+    ]
+  },
+  "dependencies": {
+    "@types/uuid": "^9.0.7",
+    "dayjs": "^1.11.10",
+    "ics": "^3.7.2",
+    "uuid": "^9.0.1"
+  }
 }
