@@ -12,10 +12,10 @@ export function getYear(url: URL) {
 	const raw_params = url.pathname.split('/');
 
 	// Validate the parameter
-	if (!validateYear(raw_params[1])) throw new HttpError(400, 'Invalid year.\nThe year must have the format "YY-YY"');
+	if (!validateYear(raw_params[2])) throw new HttpError(400, 'Invalid year.\nThe year must have the format "YY-YY"');
 	// Return the parameter
 
-	return raw_params[1];
+	return raw_params[2];
 }
 
 /**
@@ -28,13 +28,13 @@ export function getSemester(url: URL) {
 	const raw_params = url.pathname.split('/');
 
 	// Lowercase the semester
-	raw_params[2] = raw_params[2].toLowerCase();
+	raw_params[3] = raw_params[3].toLowerCase();
 
 	// Validate the parameter
-	if (!validateSemester(raw_params[2])) throw new HttpError(400, 'Invalid semester.\nThe semester must be "s1" or "s2"');
+	if (!validateSemester(raw_params[3])) throw new HttpError(400, 'Invalid semester.\nThe semester must be "s1" or "s2"');
 
 	// Return the parameter
-	return raw_params[2];
+	return raw_params[3];
 }
 
 /**
@@ -48,17 +48,17 @@ export function getUser<T = false>(url: URL, allowEmpty?: T): T extends true ? U
 	const raw_params = url.pathname.split('/');
 
 	// If the user is empty and it is allowed return undefined
-	if (allowEmpty === true && (raw_params.length < 4 || raw_params[3].length === 0))
+	if (allowEmpty === true && (raw_params.length < 5 || raw_params[4].length === 0))
 		return undefined as T extends true ? User | undefined : User;
 
 	// Upercase the user
-	raw_params[3] = raw_params[3].toUpperCase();
+	raw_params[4] = raw_params[4].toUpperCase();
 
 	// Validate the parameter
-	if (!validateUser(raw_params[3])) throw new HttpError(400, 'Invalid user.\nThe user must have the format "UO" followed by a number');
+	if (!validateUser(raw_params[4])) throw new HttpError(400, 'Invalid user.\nThe user must have the format "UO" followed by a number');
 
 	// Return the parameter
-	return raw_params[3];
+	return raw_params[4];
 }
 
 /**
