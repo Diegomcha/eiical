@@ -5,8 +5,6 @@ on:
     branches:
       - main
   push:
-    branches:
-      - main
 
 jobs:
   eslint:
@@ -38,17 +36,13 @@ jobs:
         with:
           sarif_file: eslint-results.sarif
           wait-for-processing: true
-  deploy:
-    if: ${{github.event_name != 'pull_request'}}
-    needs: eslint
+
+      - name: Prettier Action
+        uses: creyD/prettier_action@v4.3
+        with:
+          dry: true
+          prettier_options: --check
+
+  prettier:
+    name: Run Prettier scanning
     runs-on: ubuntu-latest
-    name: Deploy
-    steps:
-      - uses: actions/checkout@v3
-      - uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: latest
-      - name: Deploy
-        uses: cloudflare/wrangler-action@v3
-        with:
-          apiToken: ${{ secrets.CF_API_TOKEN }}

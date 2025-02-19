@@ -1,61 +1,25 @@
 {
-  "name": "eiical",
-  "version": "1.1.0",
-  "private": true,
-  "scripts": {
-    "deploy": "wrangler deploy",
-    "start": "wrangler dev",
-    "lint": "eslint . && prettier -c .",
-    "lint:fix": "eslint --fix . && prettier -w ."
-  },
-  "devDependencies": {
-    "@cloudflare/workers-types": "^4.20231218.0",
-    "@typescript-eslint/eslint-plugin": "^6.18.0",
-    "@typescript-eslint/parser": "^6.18.0",
-    "eslint": "^8.56.0",
-    "eslint-config-prettier": "^9.1.0",
-    "typescript": "^5.3.3",
-    "prettier": "^3.1.1",
-    "wrangler": "3.22.3"
-  },
-  "eslintConfig": {
-    "env": {
-      "es6": true
-    },
-    "extends": [
-      "eslint:recommended",
-      "prettier"
-    ],
-    "parserOptions": {
-      "ecmaVersion": 2022,
-      "sourceType": "module",
-      "project": "tsconfig.json"
-    },
-    "overrides": [
-      {
-        "files": [
-          "*.ts",
-          ".tsx"
-        ],
-        "parser": "@typescript-eslint/parser",
-        "extends": [
-          "plugin:@typescript-eslint/strict-type-checked",
-          "plugin:@typescript-eslint/stylistic-type-checked",
-          "prettier"
-        ],
-        "plugins": [
-          "@typescript-eslint"
-        ],
-        "parserOptions": {
-          "warnOnUnsupportedTypeScriptVersion": true
-        }
-      }
-    ]
-  },
-  "dependencies": {
-    "@types/uuid": "^9.0.7",
-    "dayjs": "^1.11.10",
-    "ics": "^3.7.2",
-    "uuid": "^9.0.1"
-  }
+	"name": "eiical",
+	"scripts": {
+		"deploy": "wrangler deploy --minify",
+		"dev": "wrangler dev"
+	},
+	"dependencies": {
+		"@hono/zod-validator": "^0.4.2",
+		"dayjs": "^1.11.13",
+		"hono": "^4.6.16",
+		"uuid": "^11.0.5",
+		"zod": "^3.24.1"
+	},
+	"devDependencies": {
+		"@cloudflare/workers-types": "^4.20250109.0",
+		"@eslint/js": "^9.18.0",
+		"@ianvs/prettier-plugin-sort-imports": "^4.4.0",
+		"eslint": "^9.18.0",
+		"eslint-config-prettier": "^9.1.0",
+		"globals": "^15.14.0",
+		"prettier-plugin-packagejson": "^2.5.6",
+		"typescript-eslint": "^8.19.1",
+		"wrangler": "^3.101.0"
+	}
 }

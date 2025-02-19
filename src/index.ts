@@ -1,24 +1,17 @@
-import { Env } from './utils/types';
-import routes from './routes';
+import { Hono } from 'hono';
+import applyMiddleware from './middleware';
+import csv from './routes/csv';
+import ical from './routes/ical';
+import official from './routes/official';
+import table from './routes/table';
 
-export default {
-	async fetch(req: Request, env: Env): Promise<Response> {
-		try {
-			// Parse the url
-			const url = new URL(req.url);
+const app = new Hono();
 
-			// Execute the appropriate route
-			for (const route of routes) {
-				if (route.isRoute(url)) return await route.handleRequest(url, env);
-			}
+applyMiddleware(app);
 
-			// Route not found
-			return new Response('Not found', { status: 404 });
-		} catch (err) {
-			// Default error handler
-			//TODO: Improve
-			console.error(err);
-			return new Response('Internal Server Error', { status: 500 });
-		}
-	},
-};
+app.route('/official', official);
+app.route('/csv', csv);
+app.route('/ical', ical);
+app.route('/table', table);
+
+export default app;

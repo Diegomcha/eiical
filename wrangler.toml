@@ -1,10 +1,28 @@
 name = "eiical"
 main = "src/index.ts"
-compatibility_date = "2024-01-07"
+compatibility_date = "2025-02-19"
 
-kv_namespaces = [
-    { binding = "eiical", id = "f80ed27a7689471e854d458c9be0ac2d", preview_id = "883bcf6b988f45c09acaebbd2f151612" }
-]
+# compatibility_flags = [ "nodejs_compat" ]
 
-[placement]
-mode = "smart"
+# [vars]
+# MY_VAR = "my-variable"
+
+# [[kv_namespaces]]
+# binding = "MY_KV_NAMESPACE"
+# id = "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+
+# [[r2_buckets]]
+# binding = "MY_BUCKET"
+# bucket_name = "my-bucket"
+
+# [[d1_databases]]
+# binding = "DB"
+# database_name = "my-database"
+# database_id = ""
+
+# [ai]
+# binding = "AI"
+
+[observability]
+enabled = true
+head_sampling_rate = 1
