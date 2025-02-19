@@ -2,7 +2,7 @@ import dayjs from 'dayjs';
 import customFormat from 'dayjs/plugin/customParseFormat';
 import utc from 'dayjs/plugin/utc';
 import { v5 as uuid } from 'uuid';
-import config from '../util/config';
+import config from '../../config.json';
 
 // Extend dayjs with plugins
 dayjs.extend(customFormat);
