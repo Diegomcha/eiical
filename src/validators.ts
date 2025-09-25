@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { UO } from './types';
+import { Group, UO } from './types';
 
 export const schema = z.object({
 	year: z
@@ -17,4 +17,23 @@ export const schemaWithUo = schema.extend({
 		.string()
 		.regex(/^UO\d+/i, 'UO must be a valid UO identifier')
 		.transform((v) => v.toUpperCase() as UO),
+});
+
+// Query validators
+
+export const alertSchema = z.object({
+	alert: z
+		.union([z.coerce.number().min(0), z.array(z.coerce.number().min(0))])
+		.optional()
+		.transform((val) => (val == null || Array.isArray(val) ? val : [val])),
+});
+
+export const groupSchema = z.object({
+	group: z
+		.union([
+			z.string().regex(/^[^.]+\.[^.]+\.\d+$/),
+			z.array(z.string().regex(/^[^.]+\.[^.]+\.\d+$/)),
+		])
+		.transform((val) => (Array.isArray(val) ? val : [val]))
+		.transform((val) => val.map((g) => g as Group)),
 });

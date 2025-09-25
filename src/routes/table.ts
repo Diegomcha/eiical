@@ -1,13 +1,13 @@
 import { Hono } from 'hono';
-import Schedule from '../api/Schedule';
+import Schedule from '../model/Schedule';
 import { zValidator } from '../util/validator';
 import { schemaWithUo } from '../validators';
 
-const csv = new Hono();
+const table = new Hono();
 
 // Routes
 
-csv.get(
+table.get(
 	'/:year/:semester/:uo',
 	zValidator('param', schemaWithUo),
 	async (ctx) => {
@@ -22,4 +22,4 @@ csv.get(
 	}
 );
 
-export default csv;
+export default table;

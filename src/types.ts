@@ -1,2 +1,2 @@
 export type UO = `UO${number}`;
-export type Group = `${string}.${string}.${string}`;
+export type Group = `${string}.${string}.${number}`;

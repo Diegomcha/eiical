@@ -1,9 +1,7 @@
 import { Hono } from 'hono';
-import Schedule from '../api/Schedule';
-import Calendar from '../model/Calendar';
-import { CsvInput, ICalTransformer } from '../parsers/CsvParser';
+import Schedule from '../model/Schedule';
 import { zValidator } from '../util/validator';
-import { schemaWithUo } from '../validators';
+import { alertSchema, schemaWithUo } from '../validators';
 
 const ical = new Hono();
 
@@ -12,31 +10,30 @@ const ical = new Hono();
 ical.get(
 	'/:year/:semester/:uo',
 	zValidator('param', schemaWithUo),
+	zValidator('query', alertSchema),
 	async (ctx) => {
 		// Validate parameters
 		const { year, semester, uo } = ctx.req.valid('param');
+		const { alert } = ctx.req.valid('query');
 
 		const schedule = new Schedule(year, semester);
 		const userSchedule = (await schedule.fetchUserSchedules()).get(uo);
 
 		if (!userSchedule) return ctx.notFound();
-		const csv = await userSchedule.fetchCsv();
 
-		// Transforming calendar
-		const events = new CsvInput().process(csv);
-		const cal = new Calendar(
-			`[${schedule.year.join('-')}|${semester}] Calendario EII de ${uo}`,
-			'Europe/Madrid',
-			events
+		// Transforming & sending calendar
+		return ctx.body(
+			(await userSchedule.fetchCalendar({ alert }))
+				.toIcal()
+				.url(ctx.req.url)
+				.toString(),
+			{
+				headers: {
+					'Content-Type': 'text/calendar',
+					'Content-Disposition': `attachment; filename="cal_${year.toString()}s${semester.toString()}_${uo}.ics"`,
+				},
+			}
 		);
-
-		const ical = new ICalTransformer().process(cal);
-		return ctx.text(ical, {
-			headers: {
-				'Content-Type': 'text/calendar',
-				'Content-Disposition': 'attachment; filename="cal.ics"',
-			},
-		});
 	}
 );
 

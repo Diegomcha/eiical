@@ -1,5 +1,5 @@
 import { Hono } from 'hono';
-import Schedule from '../api/Schedule';
+import Schedule from '../model/Schedule';
 import { zValidator } from '../util/validator';
 import { schemaWithUo } from '../validators';
 
