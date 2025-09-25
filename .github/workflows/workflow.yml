@@ -8,38 +8,26 @@ on:
 
 jobs:
   eslint:
-    name: Run code & style analysis
+    name: Code analysis
     runs-on: ubuntu-latest
+
     permissions:
       contents: read
-      security-events: write
-      actions: read # only required for a private repository by github/codeql-action/upload-sarif to get the Action run status
+      packages: read
+      # To report GitHub Actions status checks
+      statuses: write
+
     steps:
       - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Install Bun.sh
-        uses: oven-sh/setup-bun@v2
-
-      - name: Install dependencies
-        run: |
-          bun install --frozen-lockfile
-          bun install @microsoft/eslint-formatter-sarif@2.1.7
-
-      - name: Run ESLint
-        run: bunx eslint .
-          --format @microsoft/eslint-formatter-sarif
-          --output-file eslint-results.sarif
-        continue-on-error: true
-
-      - name: Upload analysis results to GitHub
-        uses: github/codeql-action/upload-sarif@v2
+        uses: actions/checkout@v5
         with:
-          sarif_file: eslint-results.sarif
-          wait-for-processing: true
+          # super-linter needs the full git history to get the
+          # list of files that changed across commits
+          fetch-depth: 0
+          persist-credentials: false
 
-      - name: Prettier Action
-        uses: creyD/prettier_action@v4.3
-        with:
-          dry: true
-          prettier_options: --check .
+      - name: Super-linter
+        uses: super-linter/super-linter/slim@v8.1.0
+        env:
+          # To report GitHub Actions status checks
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
