@@ -101,7 +101,7 @@ export default class Calendar {
 					type: ICalAlarmType.display,
 					triggerBefore: time * 60, // Minutes to seconds
 					summary: `Recordatorio #${(i + 1).toString()} de ${event.title}`,
-					description: `Recordatorio#${(i + 1).toString()} de ${event.title}`,
+					description: `Recordatorio #${(i + 1).toString()} de ${event.title}`,
 				})),
 			})),
 		});
