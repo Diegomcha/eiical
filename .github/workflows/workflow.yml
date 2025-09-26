@@ -7,7 +7,7 @@ on:
   push:
     branches:
       - main
-
+permissions: {}
 jobs:
   eslint:
     name: Code analysis
@@ -28,8 +28,14 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
+      - name: Install Bun.sh
+        uses: oven-sh/setup-bun@v2
+
+      - name: Install dependencies
+        run: bun install --frozen-lockfile
+
       - name: Super-linter
-        uses: super-linter/super-linter/slim@v8.1.0
+        uses: super-linter/super-linter/slim@ffde3b2
         env:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
