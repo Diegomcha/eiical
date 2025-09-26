@@ -35,7 +35,7 @@ jobs:
         run: bun install --frozen-lockfile
 
       - name: Super-linter
-        uses: super-linter/super-linter/slim@ffde3b2
+        uses: super-linter/super-linter/slim@ffde3b2b33b745cb612d787f669ef9442b1339a6
         env:
           # To report GitHub Actions status checks
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
