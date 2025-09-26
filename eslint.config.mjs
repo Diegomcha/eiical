@@ -13,7 +13,7 @@ export default defineConfig(
 				projectService: {
 					allowDefaultProject: ['*.mjs'],
 				},
-				// // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
+				// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 				tsconfigRootDir: import.meta.dirname,
 			},
 		},
