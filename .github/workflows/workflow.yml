@@ -48,4 +48,6 @@ jobs:
           wait-for-processing: true
 
       - name: Run Prettier
-        run: bunx prettier --check .
+        run: |
+          rm eslint-results.sarif
+          bunx prettier --check .
