@@ -16,6 +16,7 @@ jobs:
     permissions:
       contents: read
       security-events: write
+      actions: read
 
     steps:
       - name: Checkout code
@@ -33,13 +34,18 @@ jobs:
         run: bunx tsc --noEmit
 
       - name: Run ESLint
-        run: bunx eslint -f @microsoft/eslint-formatter-sarif -o eslint-results.sarif .
+        env:
+          SARIF_ESLINT_IGNORE_SUPPRESSED: 'true'
+        run: bunx eslint
+          -f @microsoft/eslint-formatter-sarif
+          -o eslint-results.sarif
+          .
 
-      - name: Upload to GitHub Security
+      - name: Upload analysis results to GitHub
         uses: github/codeql-action/upload-sarif@v3
-        if: always()
         with:
           sarif_file: eslint-results.sarif
+          wait-for-processing: true
 
       - name: Run Prettier
         run: bunx prettier --check .
