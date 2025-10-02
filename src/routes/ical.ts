@@ -1,7 +1,7 @@
 import { Hono } from 'hono';
 import Schedule from '../model/Schedule';
 import { zValidator } from '../util/validator';
-import { alertSchema, schemaWithUo } from '../validators';
+import { querySchema, schemaWithUo } from '../validators';
 
 const ical = new Hono();
 
@@ -10,20 +10,28 @@ const ical = new Hono();
 ical.get(
 	'/:year/:semester/:uo',
 	zValidator('param', schemaWithUo),
-	zValidator('query', alertSchema),
+	zValidator('query', querySchema),
 	async (ctx) => {
 		// Validate parameters
 		const { year, semester, uo } = ctx.req.valid('param');
-		const { alert } = ctx.req.valid('query');
+		const {
+			alert: alerts,
+			addGroup: addGroups,
+			ignoreGroup: ignoreGroups,
+		} = ctx.req.valid('query');
 
 		const schedule = new Schedule(year, semester);
 		const userSchedule = (await schedule.fetchUserSchedules()).get(uo);
 
 		if (!userSchedule) return ctx.notFound();
 
+		// Modifying groups
+		userSchedule.addGroups(addGroups);
+		userSchedule.ignoreGroups(ignoreGroups);
+
 		// Transforming & sending calendar
 		return ctx.body(
-			(await userSchedule.fetchCalendar({ alert }))
+			(await userSchedule.fetchCalendar({ alerts: alerts }))
 				.toIcal()
 				.url(ctx.req.url)
 				.toString(),

@@ -48,7 +48,7 @@ export default class Schedule {
 export class UserSchedule {
 	readonly schedule: Schedule;
 	readonly user: UO;
-	readonly groups: Group[];
+	groups: Group[];
 
 	private get url(): string {
 		return `${config.baseUrl}/plan/plan.php?y=${this.schedule.year[0].toString()}-${this.schedule.year[1].toString()}&t=s${this.schedule.semester.toString()}&${this.groups.map((g) => `${g}=${g}`).join('&')}`;
@@ -85,5 +85,16 @@ export class UserSchedule {
 			csv,
 			opts
 		);
+	}
+
+	addGroups(groups: Group[]): this {
+		for (const group of groups)
+			if (!this.groups.includes(group)) this.groups.push(group);
+		return this;
+	}
+
+	ignoreGroups(groups: Group[]): this {
+		this.groups = this.groups.filter((g) => !groups.includes(g));
+		return this;
 	}
 }

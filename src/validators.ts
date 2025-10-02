@@ -21,19 +21,25 @@ export const schemaWithUo = schema.extend({
 
 // Query validators
 
-export const alertSchema = z.object({
+export const querySchema = z.object({
 	alert: z
 		.union([z.coerce.number().min(0), z.array(z.coerce.number().min(0))])
 		.optional()
 		.transform((val) => (val == null || Array.isArray(val) ? val : [val])),
-});
-
-export const groupSchema = z.object({
-	group: z
+	addGroup: z
 		.union([
 			z.string().regex(/^[^.]+\.[^.]+\.\d+$/),
 			z.array(z.string().regex(/^[^.]+\.[^.]+\.\d+$/)),
 		])
+		.optional()
+		.transform((val) => (Array.isArray(val) ? val : [val]))
+		.transform((val) => val.map((g) => g as Group)),
+	ignoreGroup: z
+		.union([
+			z.string().regex(/^[^.]+\.[^.]+\.\d+$/),
+			z.array(z.string().regex(/^[^.]+\.[^.]+\.\d+$/)),
+		])
+		.optional()
 		.transform((val) => (Array.isArray(val) ? val : [val]))
 		.transform((val) => val.map((g) => g as Group)),
 });

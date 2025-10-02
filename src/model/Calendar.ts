@@ -12,7 +12,7 @@ import CalEvent from './CalEvent';
 dayjs.extend(customFormat);
 
 export interface CalendarOpts {
-	alert?: number[];
+	alerts?: number[];
 }
 
 export default class Calendar {
@@ -97,7 +97,7 @@ export default class Calendar {
 				lastModified: new Date(),
 				status: ICalEventStatus.CONFIRMED,
 				categories: [{ name: 'Clases EII' }],
-				alarms: this.opts?.alert?.map((time, i) => ({
+				alarms: this.opts?.alerts?.map((time, i) => ({
 					type: ICalAlarmType.display,
 					triggerBefore: time * 60, // Minutes to seconds
 					summary: `Recordatorio #${(i + 1).toString()} de ${event.title}`,
