@@ -23,8 +23,8 @@ export const schemaWithUo = schema.extend({
 
 const groupSchema = z
 	.union([
-		z.string().regex(/^[^.]+\.[^.]+\.\d+$/),
-		z.array(z.string().regex(/^[^.]+\.[^.]+\.\d+$/)),
+		z.string().regex(/^[^.]+\.[^.]+\.(I-)?\d+$/),
+		z.array(z.string().regex(/^[^.]+\.[^.]+\.(I-)?\d+$/)),
 	])
 	.optional()
 	.transform((val) => (val == null || Array.isArray(val) ? val : [val])) // ensure array or undefined
