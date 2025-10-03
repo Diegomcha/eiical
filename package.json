@@ -1,61 +1,26 @@
 {
-  "name": "eiical",
-  "version": "1.1.0",
-  "private": true,
-  "scripts": {
-    "deploy": "wrangler deploy",
-    "start": "wrangler dev",
-    "lint": "eslint . && prettier -c .",
-    "lint:fix": "eslint --fix . && prettier -w ."
-  },
-  "devDependencies": {
-    "@cloudflare/workers-types": "^4.20231218.0",
-    "@typescript-eslint/eslint-plugin": "^6.18.0",
-    "@typescript-eslint/parser": "^6.18.0",
-    "eslint": "^8.56.0",
-    "eslint-config-prettier": "^9.1.0",
-    "typescript": "^5.3.3",
-    "prettier": "^3.1.1",
-    "wrangler": "3.22.3"
-  },
-  "eslintConfig": {
-    "env": {
-      "es6": true
-    },
-    "extends": [
-      "eslint:recommended",
-      "prettier"
-    ],
-    "parserOptions": {
-      "ecmaVersion": 2022,
-      "sourceType": "module",
-      "project": "tsconfig.json"
-    },
-    "overrides": [
-      {
-        "files": [
-          "*.ts",
-          ".tsx"
-        ],
-        "parser": "@typescript-eslint/parser",
-        "extends": [
-          "plugin:@typescript-eslint/strict-type-checked",
-          "plugin:@typescript-eslint/stylistic-type-checked",
-          "prettier"
-        ],
-        "plugins": [
-          "@typescript-eslint"
-        ],
-        "parserOptions": {
-          "warnOnUnsupportedTypeScriptVersion": true
-        }
-      }
-    ]
-  },
-  "dependencies": {
-    "@types/uuid": "^9.0.7",
-    "dayjs": "^1.11.10",
-    "ics": "^3.7.2",
-    "uuid": "^9.0.1"
-  }
+	"name": "eiical",
+	"scripts": {
+		"deploy": "wrangler deploy --minify",
+		"dev": "wrangler dev"
+	},
+	"dependencies": {
+		"@hono/zod-validator": "^0.7.3",
+		"dayjs": "^1.11.18",
+		"hono": "^4.9.8",
+		"ical-generator": "^9.0.0",
+		"uuid": "^13.0.0",
+		"zod": "^4.1.11"
+	},
+	"devDependencies": {
+		"@eslint/js": "^9.36.0",
+		"@ianvs/prettier-plugin-sort-imports": "^4.7.0",
+		"eslint": "^9.36.0",
+		"eslint-config-prettier": "^10.1.8",
+		"prettier": "^3.6.2",
+		"prettier-plugin-packagejson": "^2.5.19",
+		"typescript": "^5.9.2",
+		"typescript-eslint": "^8.44.1",
+		"wrangler": "^4.40.2"
+	}
 }
