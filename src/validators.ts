@@ -19,27 +19,37 @@ export const schemaWithUo = schema.extend({
 		.transform((v) => v.toUpperCase() as UO),
 });
 
+// Query parameter validators
+
+const groupSchema = z
+	.union([
+		z.string().regex(/^[^.]+\.[^.]+\.\d+$/),
+		z.array(z.string().regex(/^[^.]+\.[^.]+\.\d+$/)),
+	])
+	.optional()
+	.transform((val) => (val == null || Array.isArray(val) ? val : [val])) // ensure array or undefined
+	.transform((val) => val?.map((g) => g as Group)); // cast to Group
+
+const alertSchema = z
+	.union([z.coerce.number().min(0), z.array(z.coerce.number().min(0))])
+	.optional()
+	.transform((val) => (val == null || Array.isArray(val) ? val : [val]));
+
 // Query validators
 
 export const querySchema = z.object({
-	alert: z
-		.union([z.coerce.number().min(0), z.array(z.coerce.number().min(0))])
-		.optional()
-		.transform((val) => (val == null || Array.isArray(val) ? val : [val])),
-	addGroup: z
-		.union([
-			z.string().regex(/^[^.]+\.[^.]+\.\d+$/),
-			z.array(z.string().regex(/^[^.]+\.[^.]+\.\d+$/)),
-		])
-		.optional()
-		.transform((val) => (Array.isArray(val) ? val : [val]))
-		.transform((val) => val.map((g) => g as Group)),
-	ignoreGroup: z
-		.union([
-			z.string().regex(/^[^.]+\.[^.]+\.\d+$/),
-			z.array(z.string().regex(/^[^.]+\.[^.]+\.\d+$/)),
-		])
-		.optional()
-		.transform((val) => (Array.isArray(val) ? val : [val]))
-		.transform((val) => val.map((g) => g as Group)),
+	addGroup: groupSchema,
+	ignoreGroup: groupSchema,
+});
+
+export const querySchemaWithAlert = querySchema.extend({
+	alert: alertSchema,
+});
+
+export const customQuerySchema = z.object({
+	group: groupSchema.nonoptional(),
+});
+
+export const customQuerySchemaWithAlert = customQuerySchema.extend({
+	alert: alertSchema,
 });

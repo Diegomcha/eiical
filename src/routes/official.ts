@@ -1,7 +1,11 @@
 import { Hono } from 'hono';
 import Schedule from '../model/Schedule';
+import {
+	createCustomScheduleHandler,
+	createUserScheduleHandler,
+} from '../util/handlers';
 import { zValidator } from '../util/validator';
-import { schema, schemaWithUo } from '../validators';
+import { schema } from '../validators';
 
 const official = new Hono();
 
@@ -15,36 +19,16 @@ official.get('/:year/:semester', zValidator('param', schema), (ctx) => {
 	return ctx.redirect(schedule.url, 301);
 });
 
-// TODO: continue...
-// official.get(
-// 	'/:year/:semester/custom',
-// 	zValidator('param', schema),
-// 	zValidator('query', groupSchema),
-// 	(ctx) => {
-// 		// Validate parameters
-// 		const { year, semester } = ctx.req.valid('param');
-// 		const { group } = ctx.req.valid('query');
-
-// 		const schedule = new Schedule(year, semester);
-// 		const customUserSchedule = schedule.getCustomSchedule(group);
-
-// 		return ctx.redirect(customUserSchedule.webUrl, 301);
-// 	}
-// );
+official.get(
+	'/:year/:semester/custom',
+	...createCustomScheduleHandler(
+		(customUserSchedule) => customUserSchedule.webUrl
+	)
+);
 
 official.get(
 	'/:year/:semester/:uo',
-	zValidator('param', schemaWithUo),
-	async (ctx) => {
-		// Validate parameters
-		const { year, semester, uo } = ctx.req.valid('param');
-
-		const schedule = new Schedule(year, semester);
-		const userSchedule = (await schedule.fetchUserSchedules()).get(uo);
-
-		if (!userSchedule) return ctx.notFound();
-		return ctx.redirect(userSchedule.webUrl, 301);
-	}
+	...createUserScheduleHandler((userSchedule) => userSchedule.webUrl)
 );
 
 export default official;
