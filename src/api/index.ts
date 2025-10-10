@@ -5,13 +5,13 @@ import ical from './routes/ical';
 import official from './routes/official';
 import table from './routes/table';
 
-const app = new Hono();
+const api = new Hono();
 
-applyMiddleware(app);
+applyMiddleware(api);
 
-app.route('/official', official);
-app.route('/csv', csv);
-app.route('/ical', ical);
-app.route('/table', table);
+api.route('/official', official);
+api.route('/csv', csv);
+api.route('/ical', ical);
+api.route('/table', table);
 
-export default app;
+export default api;

@@ -2,7 +2,7 @@ import { Hono } from 'hono';
 import {
 	createCustomScheduleHandler,
 	createUserScheduleHandler,
-} from '../util/handlers';
+} from '../handlers';
 
 const csv = new Hono();
 

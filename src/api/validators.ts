@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { Group, UO } from './types';
+import { Group, UO } from '../types';
 
 export const schema = z.object({
 	year: z

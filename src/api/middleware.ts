@@ -2,7 +2,7 @@ import { Hono } from 'hono';
 import { cache } from 'hono/cache';
 import { secureHeaders } from 'hono/secure-headers';
 import { timing } from 'hono/timing';
-import { namespace } from '../config.json';
+import { namespace } from '../../config.json';
 
 export default function applyMiddleware(app: Hono) {
 	app.use(

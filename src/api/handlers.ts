@@ -1,12 +1,12 @@
 import { createFactory } from 'hono/factory';
 import Schedule, { UserSchedule } from '../model/Schedule';
+import { zValidator } from '../util/validator';
 import {
 	customQuerySchema,
 	querySchema,
 	schema,
 	schemaWithUo,
-} from '../validators';
-import { zValidator } from './validator';
+} from './validators';
 
 const factory = createFactory();
 
