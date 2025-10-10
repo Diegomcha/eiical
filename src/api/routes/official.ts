@@ -1,10 +1,10 @@
 import { Hono } from 'hono';
-import Schedule from '../model/Schedule';
+import Schedule from '../../model/Schedule';
+import { zValidator } from '../../util/validator';
 import {
 	createCustomScheduleHandler,
 	createUserScheduleHandler,
-} from '../util/handlers';
-import { zValidator } from '../util/validator';
+} from '../handlers';
 import { schema } from '../validators';
 
 const official = new Hono();

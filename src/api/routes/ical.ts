@@ -1,6 +1,6 @@
 import { Hono } from 'hono';
-import Schedule from '../model/Schedule';
-import { zValidator } from '../util/validator';
+import Schedule from '../../model/Schedule';
+import { zValidator } from '../../util/validator';
 import {
 	customQuerySchemaWithAlert,
 	querySchemaWithAlert,
