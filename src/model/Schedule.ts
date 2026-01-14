@@ -28,12 +28,15 @@ export default class Schedule {
 			});
 
 		return new Map(
-			body.matchAll(/s[12]&(.+)&vista=web">(UO\d+)/gi).map((match) => {
+			body.matchAll(/s[12]&?([^<]*?)&vista=web">(UO\d+)/gi).map((match) => {
 				const uo = match[2].toUpperCase() as UO;
 				const schedule = new UserSchedule(
 					this,
 					uo,
-					match[1].split('&').map((g) => g.split('=')[0]) as Group[]
+					match[1]
+						.replace(/\s/g, '')
+						.split('&')
+						.map((g) => g.split('=')[0]) as Group[]
 				);
 				return [uo, schedule];
 			})
