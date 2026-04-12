@@ -1,0 +1,26 @@
+{
+	"$schema": "./node_modules/wrangler/config-schema.json",
+	"name": "eiical",
+	"main": "src/index.ts",
+	"compatibility_date": "2026-04-12",
+	"ratelimits": [
+		{
+			"name": "EIICAL_RATELIMITER",
+			"namespace_id": "1",
+			"simple": {
+				"limit": 10,
+				"period": 10,
+			},
+		},
+	],
+	"observability": {
+		"logs": {
+			"enabled": true,
+			"head_sampling_rate": 1,
+		},
+		"traces": {
+			"enabled": true,
+			"head_sampling_rate": 1,
+		},
+	},
+}
